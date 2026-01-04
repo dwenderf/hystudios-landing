@@ -53,7 +53,7 @@ export default function Page() {
       <section className="relative flex min-h-screen items-center overflow-hidden">
         <div className="mx-auto w-full max-w-7xl px-6">
           <div className="mx-auto max-w-4xl text-center">
-            <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm text-gray-600 shadow-sm">
+            <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm text-gray-600 shadow-sm animate-fade-in">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75"></span>
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-orange-500"></span>
@@ -61,15 +61,15 @@ export default function Page() {
               Coming soon — Pre-seed fundraising open
             </div>
 
-            <h1 className="mb-6 font-[family-name:var(--font-heading)] text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:text-7xl">
+            <h1 className="mb-6 font-[family-name:var(--font-heading)] text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:text-7xl animate-fade-in animate-delay-100">
               Hudson Yards Studios
             </h1>
 
-            <p className="mb-8 text-xl text-gray-600 sm:text-2xl">
+            <p className="mb-8 text-xl text-gray-600 sm:text-2xl animate-fade-in animate-delay-200">
               A new chapter in film finance is being written.
             </p>
 
-            <p className="mx-auto max-w-2xl text-lg leading-relaxed text-gray-500">
+            <p className="mx-auto max-w-2xl text-lg leading-relaxed text-gray-500 animate-fade-in animate-delay-300">
               Hudson Yards Studios is building the rails—modern infrastructure where capital moves with clarity, ownership is built to last, and stories become enduring assets in the next era of media. Foundation first.
             </p>
           </div>
@@ -82,8 +82,8 @@ export default function Page() {
       </section>
 
       {/* The Problem Section */}
-      <section className="border-t border-gray-100 py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="border-t border-gray-100 py-24 min-h-screen flex items-center">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full">
           <div className="mx-auto max-w-3xl">
             <h2 className="mb-6 font-[family-name:var(--font-heading)] text-4xl font-bold text-gray-900 sm:text-5xl">
               Film is culturally massive — but financially outdated
@@ -107,8 +107,8 @@ export default function Page() {
       </section>
 
       {/* Why Now Section */}
-      <section className="bg-white/30 py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="bg-white/30 py-24 min-h-screen flex items-center">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full">
           <div className="mx-auto max-w-3xl">
             <h2 className="mb-6 font-[family-name:var(--font-heading)] text-4xl font-bold text-gray-900 sm:text-5xl">
               Film finance is ready for modernization
@@ -129,8 +129,8 @@ export default function Page() {
       </section>
 
       {/* Get Involved Section */}
-      <section className="border-t border-gray-100 py-24" id="contact">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="border-t border-gray-100 py-24 min-h-screen flex items-center" id="contact">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full">
           <div className="mx-auto grid max-w-5xl gap-12 lg:grid-cols-2 lg:gap-16">
             <div>
               <div className="mb-4 text-sm font-semibold uppercase tracking-wider text-orange-600">Get Involved</div>
