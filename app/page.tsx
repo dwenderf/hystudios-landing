@@ -77,10 +77,10 @@ export default function Page() {
       <section className="border-t border-gray-100 py-24 min-h-screen flex items-center">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full">
           <div className="mx-auto max-w-3xl">
-            <h2 className="mb-6 font-[family-name:var(--font-heading)] text-4xl font-bold text-gray-900 sm:text-5xl">
+            <h2 className="mb-6 font-[family-name:var(--font-heading)] text-4xl font-bold text-gray-900 sm:text-5xl animate-fade-in">
               Film is culturally massive — but financially outdated
             </h2>
-            <div className="space-y-4 text-lg leading-relaxed text-gray-600">
+            <div className="space-y-4 text-lg leading-relaxed text-gray-600 animate-fade-in animate-delay-100">
               <p>
                 Film remains one of the world's most culturally important asset classes — yet its financial infrastructure has changed very little over decades.
               </p>
@@ -102,10 +102,10 @@ export default function Page() {
       <section className="bg-white/30 py-24 min-h-screen flex items-center">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full">
           <div className="mx-auto max-w-3xl">
-            <h2 className="mb-6 font-[family-name:var(--font-heading)] text-4xl font-bold text-gray-900 sm:text-5xl">
+            <h2 className="mb-6 font-[family-name:var(--font-heading)] text-4xl font-bold text-gray-900 sm:text-5xl animate-fade-in">
               Film finance is ready for modernization
             </h2>
-            <div className="space-y-4 text-lg leading-relaxed text-gray-600">
+            <div className="space-y-4 text-lg leading-relaxed text-gray-600 animate-fade-in animate-delay-100">
               <ul className="ml-6 space-y-3 list-disc">
                 <li>Global demand for content continues to grow</li>
                 <li>Short-form and episodic formats are expanding rapidly</li>
@@ -121,15 +121,15 @@ export default function Page() {
       </section>
 
       {/* Get Involved Section */}
-      <section className="border-t border-gray-100 py-24 min-h-screen flex items-center" id="contact">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full">
-          <div className="mx-auto max-w-2xl">
-            <h2 className="mb-12 text-center font-[family-name:var(--font-heading)] text-4xl font-bold text-gray-900 sm:text-5xl">
+      <section className="border-t border-gray-100 py-24 min-h-screen flex flex-col" id="contact">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full flex-1 flex items-center">
+          <div className="mx-auto w-full max-w-2xl">
+            <h2 className="mb-12 text-center font-[family-name:var(--font-heading)] text-4xl font-bold text-gray-900 sm:text-5xl animate-fade-in">
               Want to learn more?
             </h2>
 
             {status === "success" ? (
-              <div className="rounded-xl border border-green-200 bg-green-50 p-8 text-center">
+              <div className="rounded-xl border border-green-200 bg-green-50 p-8 text-center animate-fade-in">
                 <div className="mb-3 text-5xl">✓</div>
                 <div className="mb-2 text-xl font-semibold text-gray-900">Thanks — received.</div>
                 <div className="text-gray-600">
@@ -137,7 +137,7 @@ export default function Page() {
                 </div>
               </div>
             ) : (
-              <form onSubmit={onSubmit} className="space-y-4">
+              <form onSubmit={onSubmit} className="space-y-4 animate-fade-in animate-delay-100">
                 {/* Honeypot */}
                 <input
                   value={form.website}
@@ -206,11 +206,9 @@ export default function Page() {
             )}
           </div>
         </div>
-      </section>
 
-      {/* Footer */}
-      <footer className="border-t border-gray-200 bg-white/30 py-12">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        {/* Footer integrated into contact section */}
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full border-t border-gray-200 pt-8 mt-12">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="text-sm text-gray-600">
               © {new Date().getFullYear()} Hudson Yards Studios. All rights reserved.
@@ -223,7 +221,7 @@ export default function Page() {
             </a>
           </div>
         </div>
-      </footer>
+      </section>
     </main>
   );
 }
