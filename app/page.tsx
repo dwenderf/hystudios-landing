@@ -48,9 +48,9 @@ export default function Page() {
   }
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-gray-50 to-white">
+      <section className="relative overflow-hidden">
         <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
           <div className="mx-auto max-w-4xl text-center">
             <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm text-gray-600 shadow-sm">
@@ -82,7 +82,7 @@ export default function Page() {
       </section>
 
       {/* The Problem Section */}
-      <section className="border-t border-gray-100 bg-white py-24">
+      <section className="border-t border-gray-100 py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-3xl">
             <div className="mb-4 text-sm font-semibold uppercase tracking-wider text-orange-600">The Problem</div>
@@ -108,7 +108,7 @@ export default function Page() {
       </section>
 
       {/* Why Now Section */}
-      <section className="bg-gray-50 py-24">
+      <section className="bg-white/30 py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-3xl">
             <div className="mb-4 text-sm font-semibold uppercase tracking-wider text-orange-600">Why Now</div>
@@ -131,7 +131,7 @@ export default function Page() {
       </section>
 
       {/* Four Engines Section */}
-      <section className="border-t border-gray-100 bg-white py-24">
+      <section className="border-t border-gray-100 py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mb-16 text-center">
             <div className="mb-4 text-sm font-semibold uppercase tracking-wider text-orange-600">The Platform</div>
@@ -186,7 +186,7 @@ export default function Page() {
       </section>
 
       {/* Why This Team Wins Section */}
-      <section className="bg-gray-50 py-24">
+      <section className="bg-white/30 py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mb-16 text-center">
             <div className="mb-4 text-sm font-semibold uppercase tracking-wider text-orange-600">The Team</div>
@@ -231,7 +231,7 @@ export default function Page() {
       </section>
 
       {/* Get Involved Section */}
-      <section className="border-t border-gray-100 bg-white py-24" id="contact">
+      <section className="border-t border-gray-100 py-24" id="contact">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto grid max-w-5xl gap-12 lg:grid-cols-2 lg:gap-16">
             <div>
@@ -389,7 +389,7 @@ export default function Page() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 bg-gray-50 py-12">
+      <footer className="border-t border-gray-200 bg-white/30 py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="text-sm text-gray-600">
