@@ -85,7 +85,6 @@ export default function Page() {
       <section className="border-t border-gray-100 py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-3xl">
-            <div className="mb-4 text-sm font-semibold uppercase tracking-wider text-orange-600">The Problem</div>
             <h2 className="mb-6 font-[family-name:var(--font-heading)] text-4xl font-bold text-gray-900 sm:text-5xl">
               Film is culturally massive — but financially outdated
             </h2>
@@ -111,7 +110,6 @@ export default function Page() {
       <section className="bg-white/30 py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-3xl">
-            <div className="mb-4 text-sm font-semibold uppercase tracking-wider text-orange-600">Why Now</div>
             <h2 className="mb-6 font-[family-name:var(--font-heading)] text-4xl font-bold text-gray-900 sm:text-5xl">
               Film finance is ready for modernization
             </h2>
@@ -124,106 +122,6 @@ export default function Page() {
               </ul>
               <p className="pt-4 font-semibold text-gray-900">
                 Film is the laggard — and that creates opportunity.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Four Engines Section */}
-      <section className="border-t border-gray-100 py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mb-16 text-center">
-            <div className="mb-4 text-sm font-semibold uppercase tracking-wider text-orange-600">The Platform</div>
-            <h2 className="mb-6 font-[family-name:var(--font-heading)] text-4xl font-bold text-gray-900 sm:text-5xl">
-              Four coordinated pillars
-            </h2>
-            <p className="mx-auto max-w-2xl text-lg text-gray-600">
-              Hudson Yards Studios is not one product. It's an integrated ecosystem where each pillar can stand alone — but together, they compound.
-            </p>
-          </div>
-
-          <div className="grid gap-8 md:grid-cols-2">
-            <EngineCard
-              number="01"
-              title="Film Financing"
-              subtitle="Yield Engine"
-              description="Structured financing with disciplined underwriting and modern reporting. Providing capital to film projects through gap financing, bridge loans, and selective equity participation."
-              accentColor="from-orange-500 to-orange-400"
-            />
-            <EngineCard
-              number="02"
-              title="Studio & Owned Content"
-              subtitle="Asset Engine"
-              description="Controlled production and owned IP designed to compound over time. Building a portfolio of films, shorts, and series with meaningful ownership stakes."
-              accentColor="from-red-500 to-orange-500"
-            />
-            <EngineCard
-              number="03"
-              title="Tokenized Infrastructure"
-              subtitle="Scale Engine"
-              description="Digital ownership rails built for compliance and future liquidity. Enabling fractional participation and secondary markets within regulatory frameworks."
-              accentColor="from-gray-700 to-gray-600"
-            />
-            <EngineCard
-              number="04"
-              title="Cultural Platform"
-              subtitle="Brand Engine"
-              description="Community, filmmaker relationships, and ecosystem development. Including the Hudson Yards Film Festival and creator partnerships that reinforce the platform."
-              accentColor="from-blue-600 to-blue-500"
-            />
-          </div>
-
-          <div className="mt-12 text-center">
-            <p className="text-lg font-semibold text-gray-900">
-              This structure reduces risk while preserving upside.
-            </p>
-            <p className="mt-2 text-gray-600">
-              Multiple revenue streams. Clear separation of risk. No single dependency.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Why This Team Wins Section */}
-      <section className="bg-white/30 py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mb-16 text-center">
-            <div className="mb-4 text-sm font-semibold uppercase tracking-wider text-orange-600">The Team</div>
-            <h2 className="mb-6 font-[family-name:var(--font-heading)] text-4xl font-bold text-gray-900 sm:text-5xl">
-              Why this team wins
-            </h2>
-            <p className="mx-auto max-w-2xl text-lg text-gray-600">
-              A rare combination of proven company-building, award-winning creative execution, and disciplined financial leadership.
-            </p>
-          </div>
-
-          <div className="mx-auto max-w-4xl">
-            <div className="grid gap-8 md:grid-cols-2">
-              <TeamStrength
-                title="Proven Zero-to-One Execution"
-                description="CEO with a successful exit to Intercontinental Exchange (ICE), a major publicly traded exchange operator. Experience building regulated, durable platforms at scale."
-              />
-              <TeamStrength
-                title="Creative Excellence"
-                description="Emmy Award-winning President with deep production experience. Demonstrated ability to deliver premium projects at the highest professional standards."
-              />
-              <TeamStrength
-                title="Financial Rigor"
-                description="Senior financial expertise in fund structuring, cross-border operations, and disciplined capital management — critical in an industry where weak controls have historically undermined strong projects."
-              />
-              <TeamStrength
-                title="Deep Industry Relationships"
-                description="Experienced film producers and media advisors with extensive credits across features and television, providing practical insight and reducing execution risk."
-              />
-            </div>
-
-            <div className="mt-12 rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
-              <p className="text-lg leading-relaxed text-gray-700">
-                This team is not attempting to retrofit new technology onto an old studio model. The leadership's combined background across <span className="font-semibold text-gray-900">finance, production, and platform development</span> directly aligns with HYS's multi-prong approach.
-              </p>
-              <p className="mt-4 font-semibold text-gray-900">
-                Execution over speculation.
               </p>
             </div>
           </div>
@@ -405,46 +303,5 @@ export default function Page() {
         </div>
       </footer>
     </main>
-  );
-}
-
-function EngineCard({
-  number,
-  title,
-  subtitle,
-  description,
-  accentColor,
-}: {
-  number: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  accentColor: string;
-}) {
-  return (
-    <div className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-8 shadow-sm transition hover:shadow-md">
-      <div className={`absolute left-0 top-0 h-1 w-full bg-gradient-to-r ${accentColor}`}></div>
-
-      <div className="mb-4 text-sm font-bold text-gray-400">{number}</div>
-
-      <h3 className="mb-2 font-[family-name:var(--font-heading)] text-2xl font-bold text-gray-900">
-        {title}
-      </h3>
-
-      <div className="mb-4 text-sm font-semibold text-orange-600">{subtitle}</div>
-
-      <p className="leading-relaxed text-gray-600">{description}</p>
-    </div>
-  );
-}
-
-function TeamStrength({ title, description }: { title: string; description: string }) {
-  return (
-    <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-      <h3 className="mb-3 font-[family-name:var(--font-heading)] text-xl font-bold text-gray-900">
-        {title}
-      </h3>
-      <p className="leading-relaxed text-gray-600">{description}</p>
-    </div>
   );
 }
