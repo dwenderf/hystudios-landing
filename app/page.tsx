@@ -66,11 +66,11 @@ export default function Page() {
             </h1>
 
             <p className="mb-8 text-xl text-gray-600 sm:text-2xl">
-              Building the infrastructure for how films are financed, owned, and monetized in the digital era.
+              A new chapter in film finance is being written.
             </p>
 
             <p className="mx-auto max-w-2xl text-lg leading-relaxed text-gray-500">
-              A modern film finance, studio, and technology platform — grounded in institutional discipline and built to last.
+              Hudson Yards Studios is building the rails—modern infrastructure where capital moves with clarity, ownership is built to last, and stories become enduring assets in the next era of media. Foundation first.
             </p>
           </div>
         </div>
