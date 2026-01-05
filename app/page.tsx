@@ -40,16 +40,49 @@ export default function Page() {
       });
     }, observerOptions);
 
-    // Observe all sections except the first one (hero is visible on load)
-    const sections = document.querySelectorAll("section");
-    sections.forEach((section, index) => {
-      if (index > 0) {
-        // Skip hero section
-        observer.observe(section);
-      }
-    });
+    // Track observed sections so we can properly unobserve them on cleanup
+    const observedSections = new Set<Element>();
 
-    return () => observer.disconnect();
+    const observeSections = () => {
+      // Observe all sections except the first one (hero is visible on load)
+      const sections = document.querySelectorAll("section");
+      sections.forEach((section, index) => {
+        if (index > 0 && !observedSections.has(section)) {
+          // Skip hero section (index 0) and avoid re-observing the same element
+          observer.observe(section);
+          observedSections.add(section);
+        }
+      });
+    };
+
+    // Initial observation
+    observeSections();
+
+    // If supported, watch for dynamically added sections and observe them as well
+    let mutationObserver: MutationObserver | null = null;
+    if (typeof window !== 'undefined' && 'MutationObserver' in window) {
+      mutationObserver = new MutationObserver(() => {
+        observeSections();
+      });
+
+      mutationObserver.observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
+    }
+
+    return () => {
+      // Properly unobserve all tracked sections
+      observedSections.forEach((section) => {
+        observer.unobserve(section);
+      });
+
+      if (mutationObserver) {
+        mutationObserver.disconnect();
+      }
+
+      observer.disconnect();
+    };
   }, []);
 
   async function onSubmit(e: React.FormEvent) {
