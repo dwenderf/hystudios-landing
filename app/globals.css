@@ -25,13 +25,25 @@ body {
 
 /* Scroll snap */
 html {
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y proximity;
   scroll-behavior: smooth;
 }
 
 section {
   scroll-snap-align: start;
-  scroll-snap-stop: always;
+  scroll-snap-stop: normal;
+}
+
+/* Respect reduced motion preference for scroll behavior */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+    scroll-snap-type: none;
+  }
+
+  section {
+    scroll-snap-align: none;
+  }
 }
 
 /* Fade in animation for sections */
@@ -46,47 +58,67 @@ section {
   }
 }
 
-.animate-fade-in {
-  animation: fadeInUp 0.8s ease-out forwards;
+/* Only animate if user hasn't requested reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  .animate-fade-in {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  /* Stagger animation delays */
+  .animate-delay-100 {
+    animation-delay: 0.1s;
+    opacity: 0;
+  }
+
+  .animate-delay-200 {
+    animation-delay: 0.2s;
+    opacity: 0;
+  }
+
+  .animate-delay-300 {
+    animation-delay: 0.3s;
+    opacity: 0;
+  }
+
+  /* Scroll-triggered animations */
+  section:not(:first-child) .animate-fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: none;
+  }
+
+  section.section-visible .animate-fade-in {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  section.section-visible .animate-fade-in.animate-delay-100 {
+    animation-delay: 0.1s;
+  }
+
+  section.section-visible .animate-fade-in.animate-delay-200 {
+    animation-delay: 0.2s;
+  }
+
+  section.section-visible .animate-fade-in.animate-delay-300 {
+    animation-delay: 0.3s;
+  }
 }
 
-/* Stagger animation delays */
-.animate-delay-100 {
-  animation-delay: 0.1s;
-  opacity: 0;
-}
+/* Reduced motion: show content immediately without animation */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-delay-100,
+  .animate-delay-200,
+  .animate-delay-300 {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 
-.animate-delay-200 {
-  animation-delay: 0.2s;
-  opacity: 0;
-}
-
-.animate-delay-300 {
-  animation-delay: 0.3s;
-  opacity: 0;
-}
-
-/* Scroll-triggered animations */
-section:not(:first-child) .animate-fade-in {
-  opacity: 0;
-  transform: translateY(30px);
-  animation: none;
-}
-
-section.section-visible .animate-fade-in {
-  animation: fadeInUp 0.8s ease-out forwards;
-}
-
-section.section-visible .animate-fade-in.animate-delay-100 {
-  animation-delay: 0.1s;
-}
-
-section.section-visible .animate-fade-in.animate-delay-200 {
-  animation-delay: 0.2s;
-}
-
-section.section-visible .animate-fade-in.animate-delay-300 {
-  animation-delay: 0.3s;
+  section:not(:first-child) .animate-fade-in {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* Animated gradient background */
@@ -107,7 +139,22 @@ body::before {
     rgba(147, 197, 253, 0.4) 100%
   );
   background-size: 200% 200%;
-  animation: spotlightMove 20s ease-in-out infinite;
+}
+
+/* Only animate gradient if user hasn't requested reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  body::before {
+    animation: spotlightMove 20s ease-in-out infinite;
+    will-change: background-position;
+  }
+}
+
+/* Reduced motion: static gradient centered */
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    background-position: 50% 50%;
+    animation: none;
+  }
 }
 
 @keyframes spotlightMove {

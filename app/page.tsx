@@ -22,6 +22,11 @@ export default function Page() {
 
   // Intersection Observer for scroll-triggered animations
   useEffect(() => {
+    // Check if we're in a browser environment and IntersectionObserver is supported
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+      return;
+    }
+
     const observerOptions = {
       threshold: 0.1,
       rootMargin: "0px 0px -100px 0px",
@@ -157,7 +162,7 @@ export default function Page() {
 
             {status === "success" ? (
               <div className="rounded-xl border border-green-200 bg-green-50 p-8 text-center animate-fade-in">
-                <div className="mb-3 text-5xl">✓</div>
+                <div className="mb-3 text-5xl" role="img" aria-label="Success">✓</div>
                 <div className="mb-2 text-xl font-semibold text-gray-900">Thanks — received.</div>
                 <div className="text-gray-600">
                   We'll follow up shortly from <span className="font-medium text-gray-900">hello@hystudios.io</span>.
