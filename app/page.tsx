@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -11,7 +11,7 @@ export default function Page() {
     name: "",
     email: "",
     org: "",
-    interest: "Request the deck",
+    interest: "Request more information",
     message: "",
     website: "", // honeypot
   });
@@ -19,6 +19,71 @@ export default function Page() {
   const canSubmit = useMemo(() => {
     return form.name.trim().length >= 2 && form.email.trim().length >= 5 && status !== "loading";
   }, [form, status]);
+
+  // Intersection Observer for scroll-triggered animations
+  useEffect(() => {
+    // Check if we're in a browser environment and IntersectionObserver is supported
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+      return;
+    }
+
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -100px 0px",
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("section-visible");
+        }
+      });
+    }, observerOptions);
+
+    // Track observed sections so we can properly unobserve them on cleanup
+    const observedSections = new Set<Element>();
+
+    const observeSections = () => {
+      // Observe all sections except the first one (hero is visible on load)
+      const sections = document.querySelectorAll("section");
+      sections.forEach((section, index) => {
+        if (index > 0 && !observedSections.has(section)) {
+          // Skip hero section (index 0) and avoid re-observing the same element
+          observer.observe(section);
+          observedSections.add(section);
+        }
+      });
+    };
+
+    // Initial observation
+    observeSections();
+
+    // If supported, watch for dynamically added sections and observe them as well
+    let mutationObserver: MutationObserver | null = null;
+    if (typeof window !== 'undefined' && 'MutationObserver' in window) {
+      mutationObserver = new MutationObserver(() => {
+        observeSections();
+      });
+
+      mutationObserver.observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
+    }
+
+    return () => {
+      // Properly unobserve all tracked sections
+      observedSections.forEach((section) => {
+        observer.unobserve(section);
+      });
+
+      if (mutationObserver) {
+        mutationObserver.disconnect();
+      }
+
+      observer.disconnect();
+    };
+  }, []);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -48,64 +113,96 @@ export default function Page() {
   }
 
   return (
-    <main className="min-h-screen bg-[#0b0d12] text-white">
-      <div className="mx-auto max-w-5xl px-5 py-16">
-        <div className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/70">
-          <span className="h-2 w-2 rounded-full bg-[#6ee7ff] shadow-[0_0_18px_rgba(110,231,255,.55)]" />
-          Coming soon — building the rails for modern film finance
-        </div>
+    <main className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative flex min-h-screen items-center overflow-hidden">
+        <div className="mx-auto w-full max-w-7xl px-6">
+          <div className="mx-auto max-w-4xl text-center">
+            <h1 className="mb-6 font-[family-name:var(--font-heading)] text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:text-7xl animate-fade-in">
+              Hudson Yards Studios
+            </h1>
 
-        <h1 className="mt-6 text-5xl font-semibold tracking-tight">Hudson Yards Studios</h1>
+            <p className="mb-8 text-xl text-gray-600 sm:text-2xl animate-fade-in animate-delay-100">
+              A new chapter in film finance is being written.
+            </p>
 
-        <p className="mt-4 max-w-3xl text-lg leading-relaxed text-white/70">
-          A modern film finance, studio, and technology platform building infrastructure for how films are financed,
-          owned, and monetized in the digital era — grounded in institutional discipline and built to last.
-        </p>
-
-        <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
-          <Card
-            title="Film Financing (Yield Engine)"
-            body="Structured financing with disciplined underwriting and modern reporting."
-          />
-          <Card
-            title="Studio & Owned Content (Asset Engine)"
-            body="Controlled production and owned IP designed to compound over time."
-          />
-          <Card
-            title="Tokenized Infrastructure (Scale Engine)"
-            body="Digital ownership rails built for compliance and future liquidity—when the market aligns."
-          />
-          <Card
-            title="Cultural Platform (Brand Engine)"
-            body="Community, filmmaker relationships, and ecosystem development that reinforces the platform."
-          />
-        </div>
-
-        <section className="mt-10 grid grid-cols-1 gap-6 border-t border-white/10 pt-10 md:grid-cols-5">
-          <div className="md:col-span-3">
-            <div className="text-xs uppercase tracking-[.18em] text-white/60">Foundation first</div>
-            <h2 className="mt-3 text-2xl font-semibold">What we’re building first</h2>
-            <p className="mt-3 text-white/70 leading-relaxed">
-              The pre-seed phase is about establishing a durable foundation: initial structured financing activity,
-              an owned content pipeline, a compliance-first tokenization MVP, and key partnerships.
+            <p className="mx-auto max-w-2xl text-lg leading-relaxed text-gray-500 animate-fade-in animate-delay-200">
+              Hudson Yards Studios is building the rails—modern infrastructure where capital moves with clarity, ownership is built to last, and stories become enduring assets in the next era of media. Foundation first.
             </p>
           </div>
+        </div>
 
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-5 md:col-span-2">
-            <h3 className="text-base font-semibold">Request the deck</h3>
-            <p className="mt-2 text-sm text-white/70">
-              We’re sharing materials selectively. Request the deck or an intro call below.
-            </p>
+        {/* Decorative element */}
+        <div className="absolute right-0 top-0 -z-10 h-full w-1/3 opacity-30">
+          <div className="absolute right-0 top-20 h-96 w-96 rounded-full bg-gradient-to-br from-orange-200 to-orange-100 blur-3xl"></div>
+        </div>
+      </section>
+
+      {/* The Problem Section */}
+      <section className="border-t border-gray-100 py-24 min-h-screen flex items-center">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full">
+          <div className="mx-auto max-w-3xl">
+            <h2 className="mb-6 font-[family-name:var(--font-heading)] text-4xl font-bold text-gray-900 sm:text-5xl animate-fade-in">
+              Film is culturally massive — but financially outdated
+            </h2>
+            <div className="space-y-4 text-lg leading-relaxed text-gray-600 animate-fade-in animate-delay-100">
+              <p>
+                Film remains one of the world's most culturally important asset classes — yet its financial infrastructure has changed very little over decades.
+              </p>
+              <ul className="ml-6 space-y-2 list-disc">
+                <li>Opaque, relationship-driven financing structures</li>
+                <li>Capital is difficult for independent producers to access</li>
+                <li>Investors face long holding periods and illiquidity</li>
+                <li>Ownership and participation are hard to standardize or scale</li>
+              </ul>
+              <p className="pt-4 font-semibold text-gray-900">
+                This is not a creativity problem. It is an infrastructure problem.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Now Section */}
+      <section className="bg-white/30 py-24 min-h-screen flex items-center">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full">
+          <div className="mx-auto max-w-3xl">
+            <h2 className="mb-6 font-[family-name:var(--font-heading)] text-4xl font-bold text-gray-900 sm:text-5xl animate-fade-in">
+              Film finance is ready for modernization
+            </h2>
+            <div className="space-y-4 text-lg leading-relaxed text-gray-600 animate-fade-in animate-delay-100">
+              <ul className="ml-6 space-y-3 list-disc">
+                <li>Global demand for content continues to grow</li>
+                <li>Short-form and episodic formats are expanding rapidly</li>
+                <li>Investors seek differentiated, yield-generating assets</li>
+                <li>Fintech has transformed every major asset class except film</li>
+              </ul>
+              <p className="pt-4 font-semibold text-gray-900">
+                Film is the laggard — and that creates opportunity.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Get Involved Section */}
+      <section className="border-t border-gray-100 py-24 min-h-screen flex flex-col" id="contact">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full flex-1 flex items-center">
+          <div className="mx-auto w-full max-w-2xl">
+            <h2 className="mb-12 text-center font-[family-name:var(--font-heading)] text-4xl font-bold text-gray-900 sm:text-5xl animate-fade-in">
+              Want to learn more?
+            </h2>
 
             {status === "success" ? (
-              <div className="mt-4 rounded-xl border border-white/10 bg-black/30 p-4 text-sm text-white/80">
-                <div className="font-semibold">Thanks — received.</div>
-                <div className="mt-1 text-white/70">
-                  We’ll follow up shortly from <span className="text-white">hello@hystudios.io</span>.
+              <div className="rounded-xl border border-green-200 bg-green-50 p-8 text-center animate-fade-in">
+                <div className="mb-3 text-5xl" role="img" aria-label="Success">✓</div>
+                <div className="mb-2 text-xl font-semibold text-gray-900">Thanks — received.</div>
+                <div className="text-gray-600">
+                  We'll follow up shortly from <span className="font-medium text-gray-900">hello@hystudios.io</span>.
                 </div>
               </div>
             ) : (
-              <form onSubmit={onSubmit} className="mt-4 space-y-3">
+              <form onSubmit={onSubmit} className="space-y-4 animate-fade-in animate-delay-100">
                 {/* Honeypot */}
                 <input
                   value={form.website}
@@ -116,80 +213,100 @@ export default function Page() {
                   aria-hidden="true"
                 />
 
-                <select
-                  value={form.interest}
-                  onChange={(e) => setForm({ ...form, interest: e.target.value })}
-                  className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm outline-none"
-                >
-                  <option>Request the deck</option>
-                  <option>Request an intro call</option>
-                  <option>Partnership inquiry</option>
-                  <option>Other</option>
-                </select>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="name" className="sr-only">
+                      Name
+                    </label>
+                    <input
+                      id="name"
+                      required
+                      placeholder="Name"
+                      value={form.name}
+                      onChange={(e) => setForm({ ...form, name: e.target.value })}
+                      className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 outline-none transition focus:border-orange-500 focus:ring-2 focus:ring-orange-200"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="sr-only">
+                      Email
+                    </label>
+                    <input
+                      id="email"
+                      required
+                      type="email"
+                      placeholder="Email"
+                      value={form.email}
+                      onChange={(e) => setForm({ ...form, email: e.target.value })}
+                      className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 outline-none transition focus:border-orange-500 focus:ring-2 focus:ring-orange-200"
+                    />
+                  </div>
+                </div>
 
-                <input
-                  required
-                  placeholder="Name"
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm outline-none"
-                />
-                <input
-                  required
-                  type="email"
-                  placeholder="Email"
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm outline-none"
-                />
-                <input
-                  placeholder="Organization (optional)"
-                  value={form.org}
-                  onChange={(e) => setForm({ ...form, org: e.target.value })}
-                  className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm outline-none"
-                />
-                <textarea
-                  placeholder="Message (optional)"
-                  value={form.message}
-                  onChange={(e) => setForm({ ...form, message: e.target.value })}
-                  rows={4}
-                  className="w-full resize-none rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm outline-none"
-                />
+                <div>
+                  <label htmlFor="org" className="sr-only">
+                    Company name (optional)
+                  </label>
+                  <input
+                    id="org"
+                    placeholder="Company name (optional)"
+                    value={form.org}
+                    onChange={(e) => setForm({ ...form, org: e.target.value })}
+                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 outline-none transition focus:border-orange-500 focus:ring-2 focus:ring-orange-200"
+                  />
+                </div>
 
-                {status === "error" && <div className="text-sm text-red-300">{error}</div>}
+                <div>
+                  <label htmlFor="message" className="sr-only">
+                    Message (optional)
+                  </label>
+                  <textarea
+                    id="message"
+                    placeholder="Message (optional)"
+                    value={form.message}
+                    onChange={(e) => setForm({ ...form, message: e.target.value })}
+                    rows={4}
+                    className="w-full resize-none rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 outline-none transition focus:border-orange-500 focus:ring-2 focus:ring-orange-200"
+                  />
+                </div>
+
+                {status === "error" && (
+                  <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">
+                    {error}
+                  </div>
+                )}
 
                 <button
                   type="submit"
                   disabled={!canSubmit}
-                  className="w-full rounded-xl bg-gradient-to-br from-[#6ee7ff] to-[#a78bfa] px-4 py-2 text-sm font-semibold text-black disabled:opacity-50"
+                  className="w-full rounded-lg bg-gradient-to-r from-orange-600 to-orange-500 px-6 py-3 font-semibold text-white shadow-sm transition hover:from-orange-700 hover:to-orange-600 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {status === "loading" ? "Sending…" : "Submit"}
+                  {status === "loading" ? "Sending..." : "Submit"}
                 </button>
 
-                <div className="text-[11px] leading-relaxed text-white/50">
+                <p className="text-center text-xs leading-relaxed text-gray-500">
                   This site is informational and does not constitute an offer to sell or solicitation to buy securities.
-                </div>
+                </p>
               </form>
             )}
           </div>
-        </section>
+        </div>
 
-        <footer className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-white/50">
-          <div>© {new Date().getFullYear()} Hudson Yards Studios</div>
-          <a className="hover:text-white/70" href="mailto:hello@hystudios.io">
-            hello@hystudios.io
-          </a>
-        </footer>
-      </div>
+        {/* Footer integrated into contact section */}
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full border-t border-gray-200 pt-8 mt-12">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="text-sm text-gray-600">
+              © {new Date().getFullYear()} Hudson Yards Studios. All rights reserved.
+            </div>
+            <a
+              href="mailto:hello@hystudios.io"
+              className="text-sm text-gray-600 transition hover:text-gray-900"
+            >
+              hello@hystudios.io
+            </a>
+          </div>
+        </div>
+      </section>
     </main>
-  );
-}
-
-function Card({ title, body }: { title: string; body: string }) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-      <div className="text-sm font-semibold">{title}</div>
-      <div className="mt-2 text-sm leading-relaxed text-white/70">{body}</div>
-    </div>
   );
 }
