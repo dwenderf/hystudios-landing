@@ -73,12 +73,7 @@ export async function POST(req: Request) {
             message: escapeHtml(m),
         };
 
-        let subject =
-            safe.interest.toLowerCase().includes("call")
-                ? `Intro call request — ${safe.name}${safe.org ? ` (${safe.org})` : ""}`
-                : `Deck request — ${safe.name}${safe.org ? ` (${safe.org})` : ""}`;
-
-        subject = `[HYS] ${subject}`;
+        const subject = `[HYS - Landing Page] Information Request - ${safe.name}`;
 
         const html = `
       <div style="font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; line-height: 1.5;">
