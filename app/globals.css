@@ -66,6 +66,29 @@ section {
   opacity: 0;
 }
 
+/* Scroll-triggered animations */
+section:not(:first-child) .animate-fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: none;
+}
+
+section.section-visible .animate-fade-in {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+section.section-visible .animate-fade-in.animate-delay-100 {
+  animation-delay: 0.1s;
+}
+
+section.section-visible .animate-fade-in.animate-delay-200 {
+  animation-delay: 0.2s;
+}
+
+section.section-visible .animate-fade-in.animate-delay-300 {
+  animation-delay: 0.3s;
+}
+
 /* Animated gradient background */
 body::before {
   content: '';

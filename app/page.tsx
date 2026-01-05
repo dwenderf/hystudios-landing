@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -19,6 +19,33 @@ export default function Page() {
   const canSubmit = useMemo(() => {
     return form.name.trim().length >= 2 && form.email.trim().length >= 5 && status !== "loading";
   }, [form, status]);
+
+  // Intersection Observer for scroll-triggered animations
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -100px 0px",
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("section-visible");
+        }
+      });
+    }, observerOptions);
+
+    // Observe all sections except the first one (hero is visible on load)
+    const sections = document.querySelectorAll("section");
+    sections.forEach((section, index) => {
+      if (index > 0) {
+        // Skip hero section
+        observer.observe(section);
+      }
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
