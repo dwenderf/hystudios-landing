@@ -145,7 +145,6 @@ body::before {
 @media (prefers-reduced-motion: no-preference) {
   body::before {
     animation: spotlightMove 20s ease-in-out infinite;
-    will-change: background-position;
   }
 }
 
