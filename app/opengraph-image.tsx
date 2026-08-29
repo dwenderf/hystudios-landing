@@ -20,21 +20,21 @@ export default function OpenGraphImage() {
           color: "white",
         }}
       >
-        <div style={{ fontSize: 18, opacity: 0.7, letterSpacing: 1 }}>
+        <div style={{ display: "flex", fontSize: 18, opacity: 0.7, letterSpacing: 1 }}>
           Hudson Yards Studios
         </div>
 
-        <div style={{ fontSize: 64, fontWeight: 700, lineHeight: 1.05, marginTop: 16 }}>
+        <div style={{ display: "flex", fontSize: 64, fontWeight: 700, lineHeight: 1.05, marginTop: 16 }}>
           Building the rails for
           <br />
           modern film finance
         </div>
 
-        <div style={{ fontSize: 26, opacity: 0.75, marginTop: 22, maxWidth: 900 }}>
+        <div style={{ display: "flex", fontSize: 26, opacity: 0.75, marginTop: 22, maxWidth: 900 }}>
           A modern film finance, studio, and technology platform.
         </div>
 
-        <div style={{ marginTop: 44, fontSize: 18, opacity: 0.6 }}>hystudios.io</div>
+        <div style={{ display: "flex", marginTop: 44, fontSize: 18, opacity: 0.6 }}>hystudios.io</div>
       </div>
     ),
     size
