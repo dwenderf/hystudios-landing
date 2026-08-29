@@ -24,10 +24,18 @@ export default function OpenGraphImage() {
           Hudson Yards Studios
         </div>
 
-        <div style={{ display: "flex", fontSize: 64, fontWeight: 700, lineHeight: 1.05, marginTop: 16 }}>
-          Building the rails for
-          <br />
-          modern film finance
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            fontSize: 64,
+            fontWeight: 700,
+            lineHeight: 1.05,
+            marginTop: 16,
+          }}
+        >
+          <div style={{ display: "flex" }}>Building the rails for</div>
+          <div style={{ display: "flex" }}>modern film finance</div>
         </div>
 
         <div style={{ display: "flex", fontSize: 26, opacity: 0.75, marginTop: 22, maxWidth: 900 }}>
